@@ -66,7 +66,7 @@ class _CounterPageState extends State<CounterPage> {
               padding: EdgeInsets.all(8.0),
               child: FloatingActionButton(
                 onPressed: _decrementCounter,
-                tooltip: 'Increment',
+                tooltip: 'Decrement',
                 child: Icon(Icons.remove),
               ),
             ),
@@ -74,7 +74,7 @@ class _CounterPageState extends State<CounterPage> {
               padding: EdgeInsets.all(8.0),
               child: FloatingActionButton(
                 onPressed: _incrementCounter,
-                tooltip: 'decrement',
+                tooltip: 'Increment',
                 child: Icon(Icons.add),
               ),
             ),
