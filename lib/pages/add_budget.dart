@@ -121,7 +121,8 @@ class _AddState extends State<Add> {
                         ];
                     total = total + int.parse(Controller2.text);
                     Navigator.pop(context);
-                  })
+                  },
+                  child: Icon(Icons.check),)
                 ],
               ),
               width: width * 0.8,
