@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'budget_class.dart';
 
+
+bool isDisabled = false;
+
 class Card_items extends StatelessWidget {
   final BudgetClass b;
   final void Function() delete;
@@ -26,8 +29,9 @@ class Card_items extends StatelessWidget {
                     child: Text(
                       b.name,
                       style: TextStyle(
+                        color: Colors.black,
                         fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.bold
                       ),
                       softWrap: false,
                       maxLines: 5,
@@ -41,8 +45,8 @@ class Card_items extends StatelessWidget {
                     child: Text(
                       '${b.money}',
                       style: TextStyle(
+                        color: Colors.black,
                         fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
                       ),
                       softWrap: false,
                       maxLines: 1,
@@ -53,14 +57,23 @@ class Card_items extends StatelessWidget {
               ),
             ),
           ),
-          color: Colors.greenAccent,
+          color: Colors.white,
         ),
         CircleAvatar(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.white,
           child: IconButton(
             icon: Icon(Icons.delete_outline),
-            onPressed: delete,
-            color: Colors.white,
+            onPressed: () {
+              if (!isDisabled)
+              {
+                delete();
+              }
+              else{
+                null;
+              }
+            },
+            color: Colors.black,
+            
           ),
         ),
       ],

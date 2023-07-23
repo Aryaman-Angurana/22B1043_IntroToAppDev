@@ -17,60 +17,65 @@ class _AddState extends State<Add> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Budget Tracker',
+            'Categories',
           ),
           centerTitle: true,
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.black,
         ),
         body: Stack(children: [
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  Card(
-                    color: Colors.greenAccent,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Total',
-                            style: TextStyle(
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.bold,
+          Container(
+            width: width,
+            height: height,
+            color: Colors.grey[800],
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    Card(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total',
+                              style: TextStyle(
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          Text(
-                            '$total',
-                            style: TextStyle(
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
+                            Text(
+                              '$total',
+                              style: TextStyle(
+                                fontSize: 30.0,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 40.0,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: items
-                        .map((e) => Card_items(e, () {
-                              setState(() {
-                                items.remove(e);
-                                total = total - e.money;
-                              });
-                            }))
-                        .toList(),
-                  ),
-                ],
+                    SizedBox(
+                      height: 40.0,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: items
+                          .map((e) => Card_items(e, () {
+                                setState(() {
+                                  items.remove(e);
+                                  total = total - e.money;
+                                });
+                              }))
+                          .toList(),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -85,8 +90,14 @@ class _AddState extends State<Add> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Text(
+                        "Add New Category",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold
+                        ),
+                        ),
                       IconButton(
                           onPressed: () {
                             Navigator.pop(context);
@@ -94,35 +105,35 @@ class _AddState extends State<Add> {
                           icon: Icon(Icons.close))
                     ],
                   ),
-                  Text(
-                    'Category',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextField(
+                  TextFormField(
                       controller: Controller1,
                       decoration: InputDecoration(
+                        labelText: "Category",
                         border: OutlineInputBorder(),
                       )),
-                  Text(
-                    'Price',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextField(
+                  TextFormField(
                     controller: Controller2,
                     decoration: InputDecoration(
+                      labelText: "Price",
                       border: OutlineInputBorder(),
                     ),
+                    keyboardType: TextInputType.number,
                   ),
                   FloatingActionButton(onPressed: () {
-                    items = items +
+                    if (Controller1.text != "" && Controller2.text != "" && double.tryParse(Controller2.text) != null) {
+                      items = items +
                         [
                           BudgetClass(
                               Controller1.text, int.parse(Controller2.text))
                         ];
                     total = total + int.parse(Controller2.text);
                     Navigator.pop(context);
+                    }
+                    
                   },
-                  child: Icon(Icons.check),)
+                  child: Icon(Icons.check),
+                  backgroundColor: Colors.black
+                  ,)
                 ],
               ),
               width: width * 0.8,

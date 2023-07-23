@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('Budget Tracker'),
         centerTitle: true,
+        backgroundColor: Colors.black,
         leading: null,
       ),
       body: Container(
@@ -64,15 +65,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         '$total',
                         style: TextStyle(
                           fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
                         ),
                         softWrap: false,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    ElevatedButton(
-                      child: Icon(Icons.arrow_downward_rounded),
+                    FloatingActionButton(
+                      backgroundColor: Colors.black,
+                      child: Icon(Icons.keyboard_double_arrow_down_outlined),
                       onPressed: () {
                         Navigator.pushNamed(context, '/Budget')
                             .whenComplete(() => set());

@@ -24,75 +24,88 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          'Budget Tracker',
+          'Categories',
         ),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.black,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Card(
-                color: Colors.greenAccent,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Total',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      Expanded(
-                        child: Text(
-                          '$total',
+      body: Container(
+        height: height,
+        width: width,
+        color: Colors.grey[800],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                Card(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Total',
                           style: TextStyle(
                             fontSize: 30.0,
                             fontWeight: FontWeight.bold,
                           ),
-                          softWrap: false,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
                         ),
-                      )
-                    ],
+                        SizedBox(
+                          width: 20.0,
+                        ),
+                        Expanded(
+                          child: Text(
+                            '$total',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            ),
+                            softWrap: false,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 40.0,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: items
-                    .map((e) => Card_items(e, () {
-                          setState(() {
-                            items.remove(e);
-                            total = total - e.money;
-                          });
-                        }))
-                    .toList(),
-              ),
-            ],
+                SizedBox(
+                  height: 40.0,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: items
+                      .map((e) => Card_items(e, () {
+                            setState(() {
+                              items.remove(e);
+                              total = total - e.money;
+                            });
+                          }))
+                      .toList(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
-        Navigator.pushNamed(context, '/add_budget').then((value) => set());
+        isDisabled = true;
+        Navigator.pushNamed(context, '/add_budget').then((value) {
+          isDisabled = false;
+          set();
+        });
       },
       child: Icon(Icons.add),
+      backgroundColor: Colors.white,
+      foregroundColor: Colors.black,
+      hoverColor: Colors.grey[400],
       ),
     );
   }
