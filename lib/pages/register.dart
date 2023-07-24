@@ -2,17 +2,16 @@ import 'package:budget_tracker/pages/authenticate.dart';
 import 'package:budget_tracker/pages/loading.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
-
-
+class Register extends StatefulWidget {
+  
   final Function toggleView;
-  Login({required this.toggleView });
+  Register({ required this.toggleView });
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
 
   String email = '';
   String password = '';
@@ -22,19 +21,18 @@ class _LoginState extends State<Login> {
   final _formkey = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
 
-
   @override
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
       appBar: AppBar(
         title: Text(
-          'Sign In to your account',
+          'Sign Up',
         ),
         backgroundColor: Colors.black,
         actions: <Widget>[
           ElevatedButton.icon(
             icon: Icon(Icons.person),
-            label: Text('Sign Up'),
+            label: Text('Sign In'),
             style: ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(Colors.black),
             ),
@@ -67,18 +65,19 @@ class _LoginState extends State<Login> {
                 ),
                 onPressed: () async {
                   if (_formkey.currentState!.validate()){
-                  setState(() {
+                    setState(() {
                     loading = true;
                   });
-                  dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+                  dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                     if(result == null) {
                       setState(() {
                         loading = false;
-                        error = 'Invalid Credentials';
+                        error = 'Invalid credentials';
                       });
                     }
-                }},
-                child: Text("Sign in")
+                }
+                },
+                child: Text("Register")
                ),
               SizedBox(height: 12.0),
               Text(

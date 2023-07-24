@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         SizedBox(
-                          width: 20.0,
+                          width: 80.0,
                         ),
                         Expanded(
                           child: Text(

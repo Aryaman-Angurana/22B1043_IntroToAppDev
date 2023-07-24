@@ -29,9 +29,7 @@ class Card_items extends StatelessWidget {
                     child: Text(
                       b.name,
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 30.0,
-                        fontWeight: FontWeight.bold
                       ),
                       softWrap: false,
                       maxLines: 5,
@@ -45,7 +43,6 @@ class Card_items extends StatelessWidget {
                     child: Text(
                       '${b.money}',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 30.0,
                       ),
                       softWrap: false,

@@ -1,3 +1,4 @@
+import 'package:budget_tracker/pages/authenticate.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,6 +11,9 @@ class HomeScreen extends StatefulWidget {
 int total = 0;
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final AuthService _auth = AuthService();
+
   void set() {
     setState(() {});
   }
@@ -25,6 +29,16 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         backgroundColor: Colors.black,
         leading: null,
+        actions: <Widget>[
+            ElevatedButton.icon(
+              icon: Icon(Icons.person),
+              label: Text('logout'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.black)
+              ),
+              onPressed: () async {
+                await _auth.signOut();}
+      ),]
       ),
       body: Container(
         height: height,

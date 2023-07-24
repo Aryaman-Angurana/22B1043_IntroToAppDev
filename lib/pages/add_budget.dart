@@ -25,6 +25,10 @@ class _AddState extends State<Add> {
           ),
           centerTitle: true,
           backgroundColor: Colors.black,
+          leading: CircleAvatar(
+            child: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_outlined,),color: Colors.white,),
+            backgroundColor: Colors.black,
+          )
         ),
         body: Stack(children: [
           Container(
@@ -50,10 +54,16 @@ class _AddState extends State<Add> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text(
-                              '$total',
-                              style: TextStyle(
-                                fontSize: 30.0,
+                            SizedBox(width: 80.0,),
+                            Expanded(
+                              child: Text(
+                                '$total',
+                                style: TextStyle(
+                                  fontSize: 30.0,
+                                ),
+                              softWrap: false,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                               ),
                             )
                           ],
