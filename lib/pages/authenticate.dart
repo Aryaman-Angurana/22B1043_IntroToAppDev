@@ -1,4 +1,5 @@
-import 'package:budget_tracker/pages/budget_class.dart';
+// import 'package:budget_tracker/pages/budget_class.dart';
+import 'package:budget_tracker/pages/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -21,11 +22,17 @@ class AuthService {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
+
       return _userFromFirebaseUser(user);
     } catch (error) {
       print(error.toString());
       return null;
     } 
+  }
+
+  String getUid()
+  {
+    return _auth.currentUser!.uid;
   }
 
 
@@ -35,6 +42,9 @@ class AuthService {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
+
+
+      DatabaseService(uid: user!.uid).updateUserData(['Salary'],[ 40000]);
       return _userFromFirebaseUser(user);
     } catch (error) {
       print(error.toString());
@@ -59,7 +69,8 @@ class AuthService {
 
 class FUser
 {
-  String uid;
-  List<BudgetClass> items = [];
-  FUser({required this.uid});
+  String? uid;
+  List<dynamic>? items;
+  List<dynamic>? price;
+  FUser({required this.uid, this.items, this.price});
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'budget_class.dart';
+// import 'budget_class.dart';
 
 
 bool isDisabled = false;
 
 class Card_items extends StatelessWidget {
-  final BudgetClass b;
+  final List<dynamic> b;
   final void Function() delete;
   Card_items(this.b, this.delete);
 
@@ -27,7 +27,7 @@ class Card_items extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      b.name,
+                      b[0],
                       style: TextStyle(
                         fontSize: 30.0,
                       ),
@@ -41,7 +41,7 @@ class Card_items extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      '${b.money}',
+                      '${b[1]}',
                       style: TextStyle(
                         fontSize: 30.0,
                       ),

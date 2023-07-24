@@ -1,5 +1,8 @@
+import 'package:budget_tracker/pages/Budget.dart';
 import 'package:budget_tracker/pages/authenticate.dart';
+import 'package:budget_tracker/pages/database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,7 +11,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-int total = 0;
+num total = 0;
 
 class _HomeScreenState extends State<HomeScreen> {
 
@@ -23,7 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     setState(() {});
-    return Scaffold(
+    return StreamProvider<List<FUser>>.value(
+      value: DatabaseService().budget,
+      initialData: [],
+      child: Scaffold(
       appBar: AppBar(
         title: Text('Budget Tracker'),
         centerTitle: true,
@@ -37,7 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 backgroundColor: MaterialStatePropertyAll(Colors.black)
               ),
               onPressed: () async {
-                await _auth.signOut();}
+                await _auth.signOut();
+                items = [];
+                price = [];
+                total = 0;
+                }
       ),]
       ),
       body: Container(
@@ -74,17 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       width: width * 0.1,
                     ),
-                    Expanded(
-                      child: Text(
-                        '$total',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                        softWrap: false,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
+                    Total(),
                     FloatingActionButton(
                       backgroundColor: Colors.black,
                       child: Icon(Icons.keyboard_double_arrow_down_outlined),
@@ -100,6 +100,55 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    )
     );
+  }
+}
+
+
+class Total extends StatefulWidget {
+  const Total({super.key});
+
+  @override
+  State<Total> createState() => _TotalState();
+}
+
+class _TotalState extends State<Total> {
+
+  @override
+  Widget build(BuildContext context) {
+
+    final b = Provider.of<List<FUser>>(context);
+    FUser f = FUser(uid: '0');
+
+    for (int i = 0; i < b.length; i++) {
+      print(b[i].uid);
+      if (b[i].uid == 'budget/' + AuthService().getUid()) {
+        f = b[i];
+        print(f.items);
+        print(f.price);
+        print(f.uid);
+        break;
+      }
+    }if (f.price != null)
+    {
+      total = 0;
+      for (int i in f.price!)
+      {
+        total += i;
+      }
+      return Expanded(
+                      child: Text(
+                        '$total',
+                        style: TextStyle(
+                          fontSize: 30.0,
+                        ),
+                        softWrap: false,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    );
+    }
+    return Expanded(child: Text(''));
   }
 }
