@@ -43,7 +43,6 @@ class Base extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final user = Provider.of<FUser?>(context);
-    print(user);
     
     if (user == null){
       return Wrapper();

@@ -7,7 +7,8 @@ bool isDisabled = false;
 class Card_items extends StatelessWidget {
   final List<dynamic> b;
   final void Function() delete;
-  Card_items(this.b, this.delete);
+  final void Function() edit;
+  Card_items(this.b, this.delete, this.edit);
 
   @override
   Widget build(BuildContext context) {
@@ -21,34 +22,47 @@ class Card_items extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Container(
-              width: width * 0.75,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              width: width * 0.65,
+              child: Column(
                 children: [
-                  Expanded(
-                    child: Text(
-                      b[0],
-                      style: TextStyle(
-                        fontSize: 30.0,
-                      ),
-                      softWrap: false,
-                      maxLines: 5,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                          b[2].substring(0,b[2].length - 8),
+                          style: TextStyle(
+                            fontSize: 10.0,
+                          ),)
+                    ],
                   ),
-                  SizedBox(
-                    width: 20.0,
-                  ),
-                  Expanded(
-                    child: Text(
-                      '${b[1]}',
-                      style: TextStyle(
-                        fontSize: 30.0,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          b[0].substring(0,b[0].length - 8),
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          ),
+                          softWrap: false,
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                      softWrap: false,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Expanded(
+                        child: Text(
+                          '${(b[1]/100000000).floor()}',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          ),
+                          softWrap: false,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -59,15 +73,20 @@ class Card_items extends StatelessWidget {
         CircleAvatar(
           backgroundColor: Colors.white,
           child: IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+                edit();
+            },
+            color: Colors.black,
+            
+          ),
+        ),
+        CircleAvatar(
+          backgroundColor: Colors.white,
+          child: IconButton(
             icon: Icon(Icons.delete_outline),
             onPressed: () {
-              if (!isDisabled)
-              {
-                delete();
-              }
-              else{
-                null;
-              }
+              delete();
             },
             color: Colors.black,
             

@@ -9,10 +9,11 @@ class DatabaseService {
   // collection reference
   final CollectionReference Data = FirebaseFirestore.instance.collection('budget');
 
-  Future<void> updateUserData(List<dynamic> items, List<dynamic> price) async {
+  Future<void> updateUserData(List<dynamic> items, List<dynamic> price, List<dynamic> date) async {
     return await Data.doc(uid).set({
       'items' : items,
-      'price' : price
+      'price' : price,
+      'date' : date
     });
   }
 
@@ -22,7 +23,8 @@ class DatabaseService {
       return FUser(
       uid: doc.reference.path,
       items: doc.get('items'),
-      price: doc.get('price')
+      price: doc.get('price'),
+      date: doc.get('date')
       );
     }).toList();
   }

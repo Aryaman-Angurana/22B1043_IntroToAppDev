@@ -44,7 +44,7 @@ class AuthService {
       User? user = result.user;
 
 
-      DatabaseService(uid: user!.uid).updateUserData(['Salary'],[ 40000]);
+      DatabaseService(uid: user!.uid).updateUserData(['Salary10000000'],[ 4000010000000], ['1-1-110000000']);
       return _userFromFirebaseUser(user);
     } catch (error) {
       print(error.toString());
@@ -72,5 +72,6 @@ class FUser
   String? uid;
   List<dynamic>? items;
   List<dynamic>? price;
-  FUser({required this.uid, this.items, this.price});
+  List<dynamic>? date;
+  FUser({required this.uid, this.items, this.price, this.date});
 }

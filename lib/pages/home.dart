@@ -1,4 +1,3 @@
-import 'package:budget_tracker/pages/Budget.dart';
 import 'package:budget_tracker/pages/authenticate.dart';
 import 'package:budget_tracker/pages/database.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 num total = 0;
+List<dynamic> items = [];
+
+List<dynamic> price = [];
+
+List<dynamic> date = [];
+
 
 class _HomeScreenState extends State<HomeScreen> {
 
@@ -46,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 await _auth.signOut();
                 items = [];
                 price = [];
+                date = [];
                 total = 0;
                 }
       ),]
@@ -122,20 +128,20 @@ class _TotalState extends State<Total> {
     FUser f = FUser(uid: '0');
 
     for (int i = 0; i < b.length; i++) {
-      print(b[i].uid);
       if (b[i].uid == 'budget/' + AuthService().getUid()) {
         f = b[i];
-        print(f.items);
-        print(f.price);
-        print(f.uid);
+
         break;
       }
     }if (f.price != null)
     {
+      items = f.items!;
+      price = f.price!;
+      date = f.date!;
       total = 0;
-      for (int i in f.price!)
+      for (int i in price)
       {
-        total += i;
+        total += (i / 100000000).floor();
       }
       return Expanded(
                       child: Text(
